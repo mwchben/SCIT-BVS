@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const StudentController = require('../logic/student');
+router.post('/register', StudentController.create);
+router.post('/authenticate', StudentController.authenticate);
+router.post('/', StudentController.getAll);
+router.put('/:studentId', StudentController.updateById);
+router.delete('/:studentId', StudentController.deleteById);
+router.post('/resultMail', StudentController.resultMail);
+module.exports = router;

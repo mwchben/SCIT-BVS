@@ -1,0 +1,11 @@
+#__next > div > div > div:nth-child(2) > div
+{
+  background: #a03334 url('/blockchain-new.jpeg') no-repeat;
+    background-size: cover;
+  background-origin: inherit;
+
+}
+#__next > div > div > div:nth-child(2) > div > div.ui.large.inverted.pointing.secondary.menu
+{
+    border-width: 0;
+}
