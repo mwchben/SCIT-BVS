@@ -1,5 +1,5 @@
 {
-  "name": "Blockchain E-Voting",
+  "name": "SCIT Blockchain Voting System",
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
@@ -53,15 +53,14 @@
     "election",
     "web3",
     "voting",
-    "joseph",
-    "mungai"
+    "mwchben"
   ],
   "author": "",
   "license": "ISC",
-  "description": "A web3 election voting application that taps the power of blockchain technology to facilitate elections in a university/college institution",
+  "description": "A web3 election voting application that taps the power of blockchain technology to facilitate elections in a TUK university institution",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Josmun55/blockchain-election-voting"
+    "url": "https://github.com/mwchben/SCIT-BVS"
   },
   "bugs": {
     "url": "https://github.com/Josmun55/blockchain-election-voting/issues"
