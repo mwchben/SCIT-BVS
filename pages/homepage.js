@@ -88,7 +88,7 @@ class DesktopContainer extends Component {
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
                 <Helmet>
                     <title>HomePage</title>
-                    <link rel="shortcut icon" type="image/x-icon" href="/kabu-logo.png" />
+                    <link rel="shortcut icon" type="image/x-icon" href="/tuk-logo.png" />
                 </Helmet>
                 <Visibility once={false} onBottomPassed={this.showFixedMenu} onBottomPassedReverse={this.hideFixedMenu}>
                     <Segment inverted textAlign="center" style={{ minHeight: 700, padding: '0em 0em'}} vertical>
@@ -157,7 +157,7 @@ const HomepageLayout = () => (
                             Irreversible audit trail <br /> Allowing easy tracing of changes on the system.
                         </p>
                     </Grid.Column>
-                    <Image src="/kabu-logo.png" width="216" height="256" style={{ paddingTop: '50px'}} />
+                    <Image src="/tuk-logo.png" width="216" height="256" style={{ paddingTop: '50px'}} />
 
                     <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
                         <Header as="h3" style={{ fontSize: '2em' }}>
