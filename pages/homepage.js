@@ -45,7 +45,7 @@ const HomepageHeading = ({ mobile }) => (
         />
         <div style={{ float: 'left', marginTop: '10%', backgroundColor: '#0B8A8A', padding: '15px' }}>
             <Header as="h4" style={{ color: '#f4d492' }}>
-                School Admin Register / Sign in
+                Election Moderator Register / Sign in
             </Header>
             <Link route="/admin-login">
                 <Button primary size="huge" style={{ color: 'green', backgroundColor: 'white', margin:'10px' }}>
@@ -55,12 +55,12 @@ const HomepageHeading = ({ mobile }) => (
             </Link>
         </div>
 
-        <div style={{ float: 'right', marginTop: '10%', backgroundColor: '#a03334', padding: '20px' }}>
-            <Header as="h4" style={{ color: 'yellow' }}>
-                Student Login
+        <div style={{ float: 'right', marginTop: '10%', backgroundColor: '#0B8A8A', padding: '20px' }}>
+            <Header as="h4" style={{ color: '#f4d492' }}>
+                Student Voter  Login
             </Header>
             <Link route="/student-login">
-                <Button primary size="huge" style={{ color: 'blue', backgroundColor: 'white', margin:'10px' }}>
+                <Button primary size="huge" style={{ color: 'green', backgroundColor: 'white', margin:'10px' }}>
                     Student
                     <Icon name="right arrow" />
                 </Button>
