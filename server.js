@@ -15,7 +15,7 @@ console.log("checking dotenv",__dirname + '/.env' , process.env.CONTRACT_ADDRESS
 console.log("Checking the ENV", __dirname + '/.env',process.env.CONTRACT_ADDRESS);
 
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
-mongoose.connection.on('connected',() => console.log('Hurray! Connected to mongo') );
+mongoose.connection.on('connected',() => console.log('Connected to Mongo Database') );
 
 
 exp.use(express.static(path.join(__dirname, 'public')));
@@ -53,7 +53,7 @@ const handler = routes.getRequestHandler(app);
 
 app.prepare().then(() => {
     exp.use(handler).listen(3000, function () {
-        console.log('Node server listening on port 3000');
+        console.log('Server listening on port 3000, access with "http://localhost:3000/"  please');
     });
 });
 
