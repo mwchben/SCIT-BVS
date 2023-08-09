@@ -51,11 +51,12 @@ module.exports = {
                                         subject: req.body.election_name, // Subject line
 
                                         html:
+                                            'Hello there'+
                                             req.body.election_description +
-                                            '<br>Your voting id is:' +
+                                            '<br>Your ID is: ' +
                                             student.email +
                                             '<br>' +
-                                            'Your password is:' +
+                                            'Your login password will be: ' +
                                             student.password +
                                             '<br><a href="http://localhost:3000/homepage">Click here to visit the website</a>', // plain text body
                                     };
