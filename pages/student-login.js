@@ -4,10 +4,15 @@ import Cookies from 'js-cookie';
 import { Router } from '../routes';
 import { Helmet } from 'react-helmet';
 
+
+
 class LoginForm extends Component {
     state = {
         election_address: '',
+
     };
+    // emailError = false;
+    
 
     LoginForm = () => (
         <div className="login-form">
@@ -29,6 +34,7 @@ class LoginForm extends Component {
                             </Header>
                             <Form.Input
                                 fluid
+                                // error={this.emailError} 
                                 icon="user"
                                 iconPosition="left"
                                 placeholder="Email"
@@ -56,6 +62,8 @@ class LoginForm extends Component {
     );
     signin = event => {
         const email = document.getElementById('signin_email').value;
+        // const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
+        // this.emailError = emailChecker.test(email);
         const password = document.getElementById('signin_password').value;
         var http = new XMLHttpRequest();
         var url = 'student/authenticate';
@@ -85,7 +93,7 @@ class LoginForm extends Component {
                 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
                 <Helmet>
                     <title>Student voter login</title>
-                    <link rel="shortcut icon" type="image/x-icon" href="/kabu-logo.png" />
+                    <link rel="shortcut icon" type="image/x-icon" href="/tuk-logo.png" />
                 </Helmet>
                 {this.LoginForm()}
             </div>

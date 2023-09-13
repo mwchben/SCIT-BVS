@@ -238,7 +238,7 @@ class ContainerExampleContainer extends Component {
             <div>
                 <Helmet>
                     <title>Dashboard</title>
-                    <link rel="shortcut icon" type="image/x-icon" href="/kabu-logo.png" />
+                    <link rel="shortcut icon" type="image/x-icon" href="/tuk-logo.png" />
                 </Helmet>
                 <Grid>
                     <Grid.Row>
