@@ -144,7 +144,7 @@ class ContainerExampleContainer extends Component {
             >
                 <Menu.Item as="a" style={{ color: '#704e06' }}>
                     <h2>MENU</h2>
-                    <img src='../../public/logoTUK.png' alt="tuk logo"/>
+                    {/* <img src='../../public/logoTUK.png' alt="tuk logo"/> */}
                     <hr />
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
