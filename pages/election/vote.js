@@ -26,16 +26,16 @@ class StudentList extends Component {
 
         <Sidebar.Pushable>
             <Sidebar as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin' style={{ backgroundColor: 'white', borderWidth: "10px" }}>
-                <Menu.Item as='a' style={{ color: 'grey' }} >
+                <Menu.Item as='a' style={{ color: '#704e06' }} >
                     <h2>MENU</h2><hr/>
                 </Menu.Item>
-                <Menu.Item as='a' style={{ color: 'grey' }} >
+                <Menu.Item as='a' style={{ color: '#d0a242' }} >
                     <Icon name='dashboard' />
                     Dashboard
                 </Menu.Item>
                 <hr/>
                 <Button onClick={this.signOut} style={{backgroundColor: 'white'}}>
-                    <Menu.Item as='a' style={{ color: 'grey' }}>
+                    <Menu.Item as='a' style={{ color: '#704e06' }}>
                         <Icon name='sign out' />
                         Sign Out
                     </Menu.Item>

@@ -122,7 +122,7 @@ class VotingList extends Component {
                     from: accounts[0]}, (error, transactionHash) => {}
                 );
             })
-            alert("Added!");
+            alert("Candidate Added!");
         } catch (err) {
             alert("Error in file processing.");
 
@@ -158,12 +158,12 @@ class VotingList extends Component {
     SidebarExampleVisible = () => (
         <Sidebar.Pushable>
             <Sidebar as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin' style={{ backgroundColor: 'white', borderWidth: "10px" }}>
-                <Menu.Item as='a' style={{ color: 'grey' }} >
+                <Menu.Item as='a' style={{ color: '#704e06' }} >
                     <h2>MENU</h2><hr/>
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
                     <a>
-                        <Menu.Item style={{ color: 'grey' }}>
+                        <Menu.Item style={{ color: '#d0a242' }}>
                             <Icon name='dashboard'/>
                             Dashboard
                         </Menu.Item>
@@ -171,7 +171,7 @@ class VotingList extends Component {
                 </Link>
                 <Link route={`/election/${Cookies.get('address')}/candidate_list`}>
                     <a>
-                        <Menu.Item as='a' style={{ color: 'grey' }}>
+                        <Menu.Item as='a' style={{ color: '#d0a242' }}>
                             <Icon name='user outline' />
                             Candidate List
                         </Menu.Item>
@@ -179,7 +179,7 @@ class VotingList extends Component {
                 </Link>
                 <Link route={`/election/${Cookies.get('address')}/voting_list`}>
                     <a>
-                        <Menu.Item as='a' style={{ color: 'grey' }}>
+                        <Menu.Item as='a' style={{ color: '#d0a242' }}>
                             <Icon name='list' />
                             Voter List
                         </Menu.Item>
@@ -187,7 +187,7 @@ class VotingList extends Component {
                 </Link>
                 <hr/>
                 <Button onClick={this.signOut} style={{backgroundColor: 'white'}}>
-                    <Menu.Item as='a' style={{ color: 'grey' }}>
+                    <Menu.Item as='a' style={{ color: '#704e06' }}>
                         <Icon name='sign out' />
                         Sign Out
                     </Menu.Item>

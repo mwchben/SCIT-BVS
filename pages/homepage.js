@@ -103,7 +103,7 @@ class DesktopContainer extends Component {
                                 <h1
                                     style={{
                                         color: 'white',
-                                        verticalAlign: 'middle',
+                                        verticalAlign: 'left',
                                         fontFamily: 'Freestyle Script',
                                         fontSize: '300%',
                                         paddingLeft: '35%',

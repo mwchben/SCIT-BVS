@@ -117,7 +117,7 @@ class ContainerExampleContainer extends Component {
         const { election_name, election_desc } = this.state;
 
         return (
-            <div style={{ marginLeft: '43%', marginBottom: '2%', marginTop: '2%', float: 'left' }}>
+            <div style={{ marginLeft: '4%', marginBottom: '2%', color: '#008080', marginTop: '2%', float: 'left' }}>
                 <Header as="h2">
                     <Icon name="address card" />
                     <Header.Content>
@@ -142,13 +142,14 @@ class ContainerExampleContainer extends Component {
                 width="thin"
                 style={{ backgroundColor: 'white', borderWidth: '10px' }}
             >
-                <Menu.Item as="a" style={{ color: 'grey' }}>
+                <Menu.Item as="a" style={{ color: '#704e06' }}>
                     <h2>MENU</h2>
+                    <img src='../../public/logoTUK.png' alt="tuk logo"/>
                     <hr />
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
                     <a>
-                        <Menu.Item style={{ color: 'grey', fontColor: 'grey' }}>
+                        <Menu.Item style={{ color: '#d0a242', fontColor: 'grey' }}>
                             <Icon name="dashboard" />
                             Dashboard
                         </Menu.Item>
@@ -156,7 +157,7 @@ class ContainerExampleContainer extends Component {
                 </Link>
                 <Link route={`/election/${Cookies.get('address')}/candidate_list`}>
                     <a>
-                        <Menu.Item as="a" style={{ color: 'grey' }}>
+                        <Menu.Item as="a" style={{ color: '#d0a242' }}>
                             <Icon name="user outline" />
                             Candidate List
                         </Menu.Item>
@@ -164,7 +165,7 @@ class ContainerExampleContainer extends Component {
                 </Link>
                 <Link route={`/election/${Cookies.get('address')}/voting_list`}>
                     <a>
-                        <Menu.Item as="a" style={{ color: 'grey' }}>
+                        <Menu.Item as="a" style={{ color: '#d0a242' }}>
                             <Icon name="list" />
                             Student Voter List
                         </Menu.Item>
@@ -172,7 +173,8 @@ class ContainerExampleContainer extends Component {
                 </Link>
                 <hr />
                 <Button onClick={this.signOut} style={{ backgroundColor: 'white' }}>
-                    <Menu.Item as="a" style={{ color: 'grey' }}>
+                    <Menu.Item as="a" style={{ color: '#704e06' }}> 
+                    {/* #008080 */} 
                         <Icon name="sign out" />
                         Sign Out
                     </Menu.Item>
