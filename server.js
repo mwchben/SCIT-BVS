@@ -9,6 +9,10 @@ const exp = express();
 const path = require('path');
 require('dotenv').config()
 
+//server start -> for node engines >16 -> to add on package.json
+//"start": "export NODE_OPTIONS=--openssl-legacy-provider && node server.js",
+
+
 // require('dotenv').config({ path: __dirname + '/.env' });
 console.log("checking dotenv",__dirname + '/.env' , process.env.CONTRACT_ADDRESS)
 
