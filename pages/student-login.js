@@ -9,10 +9,18 @@ import { Helmet } from 'react-helmet';
 class LoginForm extends Component {
     state = {
         election_address: '',
-
+        validEmail : true,
     };
-    // emailError = false;
-    
+
+    // emailError addedcomponent
+    ErrorComponent = () => (
+
+        <div>
+            <Message
+                header="Invalid Email"
+                content="Error! Student emails should be in the format 'name@students.tukenya.ac.ke'"/>
+        </div>
+    );
 
     LoginForm = () => (
         <div className="login-form">
@@ -32,14 +40,16 @@ class LoginForm extends Component {
                             <Header as="h2" color="black" textAlign="center" style={{ marginTop: 10 }}>
                                 Login
                             </Header>
+
+                            {/* {!this.state.validEmail ? this.ErrorComponent() : ''}  */}
                             <Form.Input
-                                fluid
-                                // error={this.emailError} 
+                                fluid 
                                 icon="user"
                                 iconPosition="left"
                                 placeholder="Email"
                                 style={{ padding: 5 }}
                                 id="signin_email"
+                                error={!this.state.validEmail}
                             />
                             <Form.Input
                                 style={{ padding: 5 }}
@@ -62,8 +72,14 @@ class LoginForm extends Component {
     );
     signin = event => {
         const email = document.getElementById('signin_email').value;
-        // const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
-        // this.emailError = emailChecker.test(email);
+        
+        // email validator
+        const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
+        this.setState({validEmail : emailChecker.test(email)});
+        if(!emailChecker.test(email)){
+            alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
+            return;
+        }
         const password = document.getElementById('signin_password').value;
         var http = new XMLHttpRequest();
         var url = 'student/authenticate';
