@@ -25,13 +25,6 @@ module.exports = {
                             function (err, student) {
                                 if (err) cb(err);
                                 else {
-                                    console.log(student);
-
-                                    console.log(student.email);
-
-                                    console.log(req.body.election_description);
-
-                                    console.log(req.body.election_name);
 
                                     const transporter = nodemailer.createTransport({
                                         service: 'gmail',
@@ -68,10 +61,7 @@ module.exports = {
                                                 message: 'Student voter could not be added',
                                                 data: null,
                                             });
-
-                                            console.log(err);
                                         } else {
-                                            console.log(info);
 
                                             res.json({
                                                 status: 'success',
@@ -134,24 +124,18 @@ module.exports = {
             if (err) {
                 cb(err);
             } else {
-                console.log('email:' + req.body.email);
-                console.log('findOne:' + result);
                 if (!result) {
                     let password = bcrypt.hashSync(req.body.email, saltRounds);
-                    console.log('email not found');
-                    console.log('studentID:' + req.params.studentId);
                     StudentModel.findByIdAndUpdate(
                         req.params.studentId,
                         { email: req.body.email, password: password },
                         function (err, student) {
                             if (err) cb(err);
-                            console.log('update method object:' + student);
                         }
                     );
                     StudentModel.findById(req.params.studentId, function (err, studentInfo) {
                         if (err) cb(err);
                         else {
-                            console.log('Inside find after update' + studentInfo);
                             const transporter = nodemailer.createTransport({
                                 service: 'gmail',
                                 auth: {
@@ -175,9 +159,7 @@ module.exports = {
                             transporter.sendMail(mailOptions, function (err, info) {
                                 if (err) {
                                     res.json({ status: 'error', message: 'Student voter could not be added', data: null });
-                                    console.log(err);
                                 } else {
-                                    console.log(info);
                                     res.json({
                                         status: 'success',
                                         message: 'Student voter updated successfully!!!',
@@ -221,6 +203,19 @@ module.exports = {
                     },
                 });
 
+                if(!winner_candidate || req.body.candidate_email){
+
+                    res.json({ status: 'error', message: 'No winner candidate! Emails to candidates and student voters have not been dispatched. ', data: null });
+                    return
+                }
+
+                if(!students.length){
+
+                    res.json({ status: 'error', message: 'No student voters were added! Emails to candidates and student voters have not been dispatched. ', data: null });
+                    return
+                }
+
+
                 for (let student of students) {
 
                     const mailOptions = {
@@ -241,8 +236,6 @@ module.exports = {
                     transporter.sendMail(mailOptions, function (err, info) {
                         if (err) {
                             res.json({ status: 'error', message: 'mail error', data: null });
-
-                            console.log(err);
                         } else console.log(info);
 
                         res.json({ status: 'success', message: 'mails sent successfully!!!', data: null });
@@ -252,7 +245,7 @@ module.exports = {
                 const mailOptions = {
                     from: process.env.EMAIL, // sender address
 
-                    to: req.body.candidate_email, // list of receivers
+                    to: req.body.candidate_email, // winner
 
                     subject: req.body.election_name + ' results !!!', // Subject line
 
@@ -263,7 +256,6 @@ module.exports = {
                     if (err) {
                         res.json({ status: 'error', message: 'mail error', data: null });
 
-                        console.log(err);
                     } else console.log(info);
 
                     res.json({ status: 'success', message: 'mail sent successfully!!!', data: null });
