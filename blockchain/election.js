@@ -7,7 +7,6 @@ export default address => {
     const instance =  new web3.eth.Contract(
         JSON.parse(Election.interface), add
     );
-    console.log("yup",add)
     instance.options.address = add;
 
     return instance;
