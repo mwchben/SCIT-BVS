@@ -79,10 +79,9 @@ class DividerExampleVerticalForm extends Component {
 
         http.onreadystatechange = () => {
             //Call a function when the state changes.
-            console.log(http.readyState, http.status);
             if (http.readyState == 4 && http.status == 200) {
                 const responseObj = JSON.parse(http.responseText);
-                if(responseObj.status=="success") {
+                if(responseObj.status === "success") {
                     Cookies.set('admin_id', encodeURI(responseObj.data.id));
                     Cookies.set('admin_email', encodeURI(responseObj.data.email));
                 }
@@ -95,12 +94,9 @@ class DividerExampleVerticalForm extends Component {
         };
         await http.send(params);
         try {
-            console.log("tryingg..")
             const accounts = await web3.eth.getAccounts();
-            console.log(accounts[0]);
             
             const summary = await Election_Factory.methods.getDeployedElection(this.state.email).call({from: accounts[0]});
-            console.log(summary, this.state.email, accounts[0]);
             if(summary[2] == "Create an election.") {
                 Router.pushRoute(`/election/create-election`);
             } else {
