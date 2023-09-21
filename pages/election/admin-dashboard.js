@@ -84,15 +84,11 @@ class ContainerExampleContainer extends Component {
         http.send(params);
         try {
             const add = Cookies.get('address');
-            console.log(add)
             const election = Election(add);
             const summary = await election.methods.getElectionDetails().call();
-            console.log(summary)
             const v = await election.methods.getNumOfVoters().call();
-            console.log(v)
             this.setState({ voters: v });
             const c = await election.methods.getNumOfCandidates().call();
-            console.log(c);
             this.setState({ candidates: c });
             this.setState({
                 election_name: summary[0],
@@ -106,7 +102,6 @@ class ContainerExampleContainer extends Component {
             }
             this.returnGraph();
         } catch (err) {
-            console.log(err.message);
             alert('Redirecting you to login page...');
             Router.pushRoute('/admin_login');
         }
@@ -117,7 +112,7 @@ class ContainerExampleContainer extends Component {
         const { election_name, election_desc } = this.state;
 
         return (
-            <div style={{ marginLeft: '4%', marginBottom: '2%', color: '#008080', marginTop: '2%', float: 'left' }}>
+            <div style={{ marginLeft: '43%', marginBottom: '2%', marginTop: '2%', float: 'left' }}>
                 <Header as="h2">
                     <Icon name="address card" />
                     <Header.Content>
@@ -144,7 +139,6 @@ class ContainerExampleContainer extends Component {
             >
                 <Menu.Item as="a" style={{ color: '#704e06' }}>
                     <h2>MENU</h2>
-                    {/* <img src='../../public/logoTUK.png' alt="tuk logo"/> */}
                     <hr />
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
@@ -173,7 +167,7 @@ class ContainerExampleContainer extends Component {
                 </Link>
                 <hr />
                 <Button onClick={this.signOut} style={{ backgroundColor: 'white' }}>
-                    <Menu.Item as="a" style={{ color: '#704e06' }}> 
+                    <Menu.Item as="a" style={{ color: '#704e06' }}>
                     {/* #008080 */} 
                         <Icon name="sign out" />
                         Sign Out
@@ -187,7 +181,7 @@ class ContainerExampleContainer extends Component {
         Cookies.remove('admin_email');
         Cookies.remove('admin_id');
         alert('Logging out.');
-        Router.pushRoute('/homepage');
+        window.location.href='/homepage';
     }
     endElection = async event => {
         let candidate = 0;
@@ -195,10 +189,10 @@ class ContainerExampleContainer extends Component {
             this.setState({ loading: true });
             const add = Cookies.get('address');
             const election = Election(add);
-            candidate = await election.methods.winnerCandidate().call();
-            console.log("cand", candidate)
+            const accounts = await web3.eth.getAccounts();
+            candidate = await election.methods.winnerCandidate().call({
+                from: accounts[0]});
             cand = await election.methods.getCandidate(candidate).call();
-            console.log("candidate", cand)
             var http = new XMLHttpRequest();
             var url = '/student/resultMail';
             var params =
@@ -213,19 +207,23 @@ class ContainerExampleContainer extends Component {
             http.open('POST', url, true);
             //Send the proper header information along with the request
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            let that = this;
             http.onreadystatechange = function () {
                 //Call a function when the state changes.
                 if (http.readyState == 4 && http.status == 200) {
                     var responseObj = JSON.parse(http.responseText);
                     if (responseObj.status == 'success') {
                         alert('Mail sent!');
+                        that.setState({loading: false})
                     } else {
                         alert(responseObj.message);
+                        that.setState({loading: false})
                     }
                 }
             };
             this.setState({ loading: true });
             http.send(params);
+            window.location.href='/homepage';
         } catch (err) {
             console.log(err.message);
         }
