@@ -22,7 +22,7 @@ class LoginForm extends Component {
             const bool = await Election_Factory.methods
                 .createElection(email, this.state.election_name, this.state.election_description)
                 .send({ from: accounts[0] });
-            console.log("bool",bool, accounts)
+                console.log("bool",bool, accounts)
 
             if (bool) {
                 const summary = await Election_Factory.methods.getDeployedElection(email).call();

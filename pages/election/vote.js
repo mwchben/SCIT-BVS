@@ -18,6 +18,7 @@ class StudentList extends Component {
         cand_name: '',
         cand_desc: '',
         buffer: '',
+        student_email: Cookies.get('student_email'),
         ipfsHash: null,
         loading: false
     };
@@ -26,16 +27,16 @@ class StudentList extends Component {
 
         <Sidebar.Pushable>
             <Sidebar as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin' style={{ backgroundColor: 'white', borderWidth: "10px" }}>
-                <Menu.Item as='a' style={{ color: '#704e06' }} >
+                <Menu.Item as='a' style={{ color: 'grey' }} >
                     <h2>MENU</h2><hr/>
                 </Menu.Item>
-                <Menu.Item as='a' style={{ color: '#d0a242' }} >
+                <Menu.Item as='a' style={{ color: 'grey' }} >
                     <Icon name='dashboard' />
                     Dashboard
                 </Menu.Item>
                 <hr/>
                 <Button onClick={this.signOut} style={{backgroundColor: 'white'}}>
-                    <Menu.Item as='a' style={{ color: '#704e06' }}>
+                    <Menu.Item as='a' style={{ color: 'grey' }}>
                         <Icon name='sign out' />
                         Sign Out
                     </Menu.Item>
@@ -48,7 +49,7 @@ class StudentList extends Component {
         Cookies.remove('address');
         Cookies.remove('student_email');
         alert("Logging out.");
-        Router.pushRoute('/homepage');
+        window.location.href='/homepage';
     }
 
     async componentDidMount() {
@@ -64,7 +65,6 @@ class StudentList extends Component {
 
             const c = await election.methods.getNumOfCandidates().call();
 
-            console.log("summary", c)
             let candidates = [];
             for(let i=0 ; i<c; i++) {
                 candidates.push(await election.methods.getCandidate(i).call());
@@ -90,8 +90,8 @@ class StudentList extends Component {
             });
             this.setState({item: items});
         } catch(err) {
-            console.log("err", err)
-            console.log(err.message);
+            // console.log("err", err)
+            // console.log(err.message);
             alert("Session expired. Redirecting you to login page...");
             Router.pushRoute('/student_login');
         }
@@ -99,16 +99,18 @@ class StudentList extends Component {
     getElectionDetails = () => {
         const {
             election_name,
-            election_description
+            election_description,
+            student_email
         } = this.state;
 
         return (
-            <div style={{marginLeft: '45%',marginBottom: '2%',marginTop: '2%'}}>
+            <div style={{marginLeft: '10%',marginBottom: '2%',marginTop: '2%'}}>
                 <Header as="h2">
                     <Icon name="address card" />
                     <Header.Content>
                         {election_name}
-                        <Header.Subheader>{election_description}</Header.Subheader>
+                        <Header.Subheader>{election_description}</Header.Subheader><br/>
+                        <Header.Subheader>The student(voter)is - {student_email}</Header.Subheader>
                     </Header.Content>
                 </Header>
             </div>
@@ -123,7 +125,7 @@ class StudentList extends Component {
         const e = parseInt(event.currentTarget.id,10);
         const accounts = await web3.eth.getAccounts();
         const add = Cookies.get('address');
-        console.log("addres", add)
+        // console.log("addres", add)
         const election = Election(add);
         await election.methods.vote(e,Cookies.get('student_email')).send({from: accounts[0]});
         alert("Voted!")
