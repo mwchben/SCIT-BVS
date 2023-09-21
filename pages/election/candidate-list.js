@@ -26,14 +26,12 @@ class VotingList extends Component {
             const add = Cookies.get('address');
             const election = Election(add);
             const summary = await election.methods.getElectionDetails().call();
-            console.log("sum", summary)
             this.setState({
                 election_name: summary[0],
                 election_description: summary[1]
             });
             const c = await election.methods.getNumOfCandidates().call();
 
-            console.log("c", c)
             if(c == 0)
                 alert("Register a candidate first!");
 
@@ -44,13 +42,15 @@ class VotingList extends Component {
             let i=-1;
             const items = candidates.map(candidate => {
                 i++;
-                console.log(candidate[2]);
                 return {
                     header: candidate[0],
-                    description: candidate[1],
+                    description: candidate[1] +' - ' + candidate[4],
                     image: (
                         <Image id={i} src={`https://ipfs.io/ipfs/${candidate[2]}`} style={{maxWidth: '100%',maxHeight:'190px'}}/>
                     ),
+                    // image: (
+                    //     <Image id={i} src={`/candidate.jpeg`} style={{maxWidth: '100%',maxHeight:'190px'}}/>
+                    // ),
                     extra: (
                         <div>
                             <Icon name='pie graph' iconPostion='left'/>
@@ -62,7 +62,6 @@ class VotingList extends Component {
             });
             this.setState({item: items});
         } catch(err) {
-            console.log(err.message);
             alert("Redirecting you to login page...");
             Router.pushRoute('/admin_login');
         }
@@ -200,7 +199,7 @@ class VotingList extends Component {
         Cookies.remove('admin_email');
         Cookies.remove('admin_id');
         alert("Logging out.");
-        Router.pushRoute('/homepage');
+        window.location.href='/homepage';
     }
 
 
@@ -244,7 +243,7 @@ class VotingList extends Component {
                                                 <Form.Input
                                                     fluid
                                                     label='Name:'
-                                                    placeholder='Enter your name.'
+                                                    placeholder='Enter candidate name.'
                                                     onChange={event => this.setState({ cand_name: event.target.value })}
                                                     textAlign='center'
 
@@ -254,11 +253,12 @@ class VotingList extends Component {
 
 
                                                 <div class="ui fluid" style={{ borderWidth: '0px', marginRight: '20%' }}>
-                                                    <input type="file" class="inputfile" id="embedpollfileinput"
+                                                    <input type="file" class="inputfile" id="embedpollfileinput" src="/candidate2.png"
                                                            onChange={this.captureFile}
                                                            style={{ maxWidth: '0.1px', maxHeight: '0.1px', zIndex: '-1', overflow: 'hidden', position: 'absolute' }}
                                                     />
-                                                    <label for="embedpollfileinput" class="ui huge blue right floated button" style={{ fontSize: '15px', marginRight: '30%' }}>
+                                                    <Image id={'candidateImage'} src={`/candidate2.png`} style={{maxWidth: '100%',maxHeight:'50px'}}/>
+                                                    <label for="embedpollfileinput" class="ui huge blue right floated button" style={{ fontSize: '10px' }}>
                                                         <i class="ui upload icon"></i>
                                                         Upload image
                                                     </label>
@@ -267,7 +267,7 @@ class VotingList extends Component {
                                                 <Form.Input as='TextArea'
                                                             fluid
                                                             label='Description:'
-                                                            placeholder='Describe here.'
+                                                            placeholder='Candidate description'
                                                             style={{width: '100%'}}
                                                             centered={true}
                                                             onChange={event => this.setState({ cand_desc: event.target.value })}
@@ -276,7 +276,7 @@ class VotingList extends Component {
                                                 <p>E-mail ID: </p>
                                                 <Form.Input fluid
                                                             id="email"
-                                                            placeholder="Enter your e-mail"
+                                                            placeholder="Enter candidate e-mail"
                                                 />
                                                 <br/>
                                                 <Button primary onClick={this.onSubmit} loading={this.state.loading} style={{Bottom: '10px',marginBottom: '10px'}}>Register</Button>
