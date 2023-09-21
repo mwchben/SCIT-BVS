@@ -14,6 +14,7 @@ class StudentList extends Component {
         emailArr: [],
         idArr: [],
         item: [],
+        validEmail: true
     }
 
     async componentDidMount() {
@@ -167,12 +168,12 @@ class StudentList extends Component {
     SidebarExampleVisible = () => (
         <Sidebar.Pushable>
             <Sidebar as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin' style={{ backgroundColor: 'white', borderWidth: "10px" }}>
-                <Menu.Item as='a' style={{ color: '#704e06' }} >
+                <Menu.Item as='a' style={{ color: 'grey' }} >
                     <h2>MENU</h2><hr/>
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
                     <a>
-                        <Menu.Item style={{ color: '#d0a242', fontColor: 'grey' }}>
+                        <Menu.Item style={{ color: 'grey', fontColor: 'grey' }}>
                             <Icon name='dashboard'/>
                             Dashboard
                         </Menu.Item>
@@ -180,15 +181,15 @@ class StudentList extends Component {
                 </Link>
                 <Link route={`/election/${Cookies.get('address')}/candidate_list`}>
                     <a>
-                        <Menu.Item as='a' style={{ color: '#d0a242' }}>
+                        <Menu.Item as='a' style={{ color: 'grey' }}>
                             <Icon name='user outline' />
                             Candidate List
                         </Menu.Item>
                     </a>
                 </Link>
-                <Link route={`/election/${Cookies.get('address')}/student_list`}>
+                <Link route={`/election/${Cookies.get('address')}/voting_list`}>
                     <a>
-                        <Menu.Item as='a' style={{ color: '#d0a242' }}>
+                        <Menu.Item as='a' style={{ color: 'grey' }}>
                             <Icon name='list' />
                             Student voter List
                         </Menu.Item>
@@ -196,7 +197,7 @@ class StudentList extends Component {
                 </Link>
                 <hr/>
                 <Button onClick={this.signOut} style={{backgroundColor: 'white'}}>
-                    <Menu.Item as='a' style={{ color: '#704e06' }}>
+                    <Menu.Item as='a' style={{ color: 'grey' }}>
                         <Icon name='sign out' />
                         Sign Out
                     </Menu.Item>
@@ -209,12 +210,19 @@ class StudentList extends Component {
         Cookies.remove('admin_email');
         Cookies.remove('admin_id');
         alert("Logging out.");
-        Router.pushRoute('/homepage');
+        window.location.href='/homepage';
     }
 
     register = event => {
 
         const email = document.getElementById('register_student_email').value;
+
+        const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
+        this.setState({validEmail : emailChecker.test(email)});
+        if(!emailChecker.test(email)){
+            alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
+            return;
+        }
 
         var http = new XMLHttpRequest();
         var url = "/student/register";
@@ -281,6 +289,7 @@ class StudentList extends Component {
                                                     label='Email:'
                                                     placeholder='Enter your email.'
                                                     textAlign='center'
+                                                    error={!this.state.validEmail}
                                                 />
 
                                                 <br /><br />
