@@ -41,15 +41,16 @@ module.exports = {
 
                                         to: student.email, // list of receivers
 
-                                        subject: req.body.election_name, // Subject line
+                                        subject: 'Voter Registration', // Subject line
 
                                         html:
-                                            'Hello there'+
-                                            req.body.election_description +
-                                            '<br>Your ID is: ' +
+                                            'Hello,'+
+                                            'We’d like to confirm that your candidate status was created successfully for the' + req.body.election_name +
+                                            '<br>'+ 'About: '+ req.body.election_description+
+                                            '<br>'+ 'Your ID will be: ' +
                                             student.email +
-                                            '<br>' +
-                                            'Your login password will be: ' +
+                                            '<br>' + 'and your '+
+                                            'login password will be: ' +
                                             student.password +
                                             '<br><a href="http://localhost:3000/homepage">Click here to visit the website</a>', // plain text body
                                     };
@@ -202,8 +203,9 @@ module.exports = {
                         pass: process.env.PASSWORD,
                     },
                 });
+                console.log("Winner candidate", winner_candidate, req.body.candidate_email);
 
-                if(!winner_candidate || req.body.candidate_email){
+                if(!winner_candidate || !req.body.candidate_email){
 
                     res.json({ status: 'error', message: 'No winner candidate! Emails to candidates and student voters have not been dispatched. ', data: null });
                     return
@@ -223,7 +225,7 @@ module.exports = {
 
                         to: student.email, // list of receivers
 
-                        subject: election_name + ' results', // Subject line
+                        subject: 'Election results', // Subject line
 
                         html:
                             'The results of ' +
@@ -247,9 +249,11 @@ module.exports = {
 
                     to: req.body.candidate_email, // winner
 
-                    subject: req.body.election_name + ' results !!!', // Subject line
+                    subject: 'Election Outcome!', // Subject line
 
                     html: 'Congratulations you won ' + req.body.election_name + ' election.', // plain text body
+
+                  
                 };
 
                 transporter.sendMail(mailOptions, function (err, info) {
