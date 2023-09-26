@@ -74,12 +74,13 @@ class LoginForm extends Component {
         const email = document.getElementById('signin_email').value;
         
         // email validator
-        const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
-        this.setState({validEmail : emailChecker.test(email)});
-        if(!emailChecker.test(email)){
-            alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
-            return;
-        }
+        // const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
+        // this.setState({validEmail : emailChecker.test(email)});
+        // if(!emailChecker.test(email)){
+        //     alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
+        //     return;
+        // }
+
         const password = document.getElementById('signin_password').value;
         var http = new XMLHttpRequest();
         var url = 'student/authenticate';

@@ -217,12 +217,12 @@ class StudentList extends Component {
 
         const email = document.getElementById('register_student_email').value;
 
-        const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
-        this.setState({validEmail : emailChecker.test(email)});
-        if(!emailChecker.test(email)){
-            alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
-            return;
-        }
+        // const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
+        // this.setState({validEmail : emailChecker.test(email)});
+        // if(!emailChecker.test(email)){
+        //     alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
+        //     return;
+        // }
 
         var http = new XMLHttpRequest();
         var url = "/student/register";
