@@ -9,11 +9,6 @@ const exp = express();
 const path = require('path');
 require('dotenv').config()
 
-//server start -> for node engines >16 -> to add on package.json
-//"start": "export NODE_OPTIONS=--openssl-legacy-provider && node server.js",
-
-
-// require('dotenv').config({ path: __dirname + '/.env' });
 console.log("checking dotenv",__dirname + '/.env' , process.env.CONTRACT_ADDRESS)
 
 console.log("Checking the ENV", __dirname + '/.env',process.env.CONTRACT_ADDRESS);
@@ -30,17 +25,6 @@ exp.use(
 );
 exp.use(bodyParser.json());
 console.log(path.join(__dirname, 'public'),path.join(__dirname, 'pages/homepage.js'));
-
-
-// exp.get('/', function (req, res) {
-//     res.sendFile(path.join(__dirname + 'pages/homepage.js'));
-//     // res.sendFile('/pages/homepage.js', { root: __dirname });
-// });
-
-//try res.redirect
-// exp.get('/', function (req, res) {
-//     res.redirect('/homepage');
-// });
 
 exp.use('/admin', admin);
 
