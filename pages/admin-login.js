@@ -188,7 +188,7 @@ class DividerExampleVerticalForm extends Component {
                                                 id="signup_email"
                                                 icon="user"
                                                 iconPosition="left"
-                                                placeholder="Email"
+                                                placeholder="Username"
                                                 style={{ padding: 5 }}
                                             />
                                             <Form.Input

@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
-import { Grid, Step, Icon, Menu, Sidebar, Container, Modal, Card, Header, Button, Item } from 'semantic-ui-react';
+import {
+    Grid,
+    Step,
+    Icon,
+    Menu,
+    Sidebar,
+    Container,
+    Modal,
+    Card,
+    Header,
+    Button,
+    Item,
+    TableFooter,
+    Image
+} from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import { Bar } from 'react-chartjs-2';
 import 'chartjs-plugin-annotation';
@@ -55,6 +69,7 @@ const data = {
 };
 
 class ContainerExampleContainer extends Component {
+
     state = {
         election_address: Cookies.get('address'),
         election_name: '',
@@ -64,6 +79,7 @@ class ContainerExampleContainer extends Component {
         visible: false,
         loading: false,
         b: 0,
+        // timeRemaining: ''
     };
     async componentDidMount() {
         var http = new XMLHttpRequest();
@@ -123,6 +139,8 @@ class ContainerExampleContainer extends Component {
             </div>
         );
     };
+
+   
     CardExampleGroupProps = () => <Card.Group></Card.Group>;
     GridExampleGrid = () => <Grid>{columns}</Grid>;
     SidebarExampleVisible = () => (
@@ -138,7 +156,9 @@ class ContainerExampleContainer extends Component {
                 style={{ backgroundColor: 'white', borderWidth: '10px' }}
             >
                 <Menu.Item as="a" style={{ color: '#704e06' }}>
-                    <h2>MENU</h2>
+                    <div style={{display:'flex' , justifyContent: 'center'}}>
+                        <Image id="logo-image" src={`/tuk-logo.png`} style={{maxWidth: '100%',maxHeight:'50px'}}/>
+                    </div>
                     <hr />
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
@@ -168,7 +188,6 @@ class ContainerExampleContainer extends Component {
                 <hr />
                 <Button onClick={this.signOut} style={{ backgroundColor: 'white' }}>
                     <Menu.Item as="a" style={{ color: '#704e06' }}>
-                    {/* #008080 */} 
                         <Icon name="sign out" />
                         Sign Out
                     </Menu.Item>
@@ -183,16 +202,46 @@ class ContainerExampleContainer extends Component {
         alert('Logging out.');
         window.location.href='/homepage';
     }
+
+    // currentDate = new Date ()
+    // electionDays = Cookies.get('days')
+    // countDownDate = this.electionDays ? new Date(this.currentDate.getTime() + this.electionDays * 24 * 60 * 60 * 1000) :  new Date(this.currentDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+    // updateCountdown = (that) => {
+
+    //     let newThis = that;
+    //     const daysTime = newThis.countDownDate;
+    //     const now = new Date().getTime();
+
+    //     const timeRemaining = daysTime - now;
+
+    //     const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+    //     const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //     const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    //     const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    //     newThis.setState({timeRemaining: `${days} D, ${hours} h, ${minutes} m, ${seconds} s` })
+
+    //     if (timeRemaining < 0) {
+    //         newThis.setState({timeRemaining: `CLOSED` })
+    //         clearInterval(newThis.updateCountdown);
+    //         newThis.endElection();
+    //     }
+    // }
+
+
     endElection = async event => {
         let candidate = 0;
         try {
             this.setState({ loading: true });
             const add = Cookies.get('address');
             const election = Election(add);
+            console.log("Test 0",election)
             const accounts = await web3.eth.getAccounts();
+            console.log("Test 1",accounts)
             candidate = await election.methods.winnerCandidate().call({
                 from: accounts[0]});
+
             cand = await election.methods.getCandidate(candidate).call();
+            console.log("test 2",cand)
             var http = new XMLHttpRequest();
             var url = '/student/resultMail';
             var params =
@@ -234,6 +283,7 @@ class ContainerExampleContainer extends Component {
     returnGraph = () => <Bar data={data} width={120} height={50} options={options} />;
 
     render() {
+        // setInterval(this.updateCountdown, 1000, this)
         return (
             <div>
                 <Helmet>
@@ -255,6 +305,11 @@ class ContainerExampleContainer extends Component {
                                 >
                                     End election
                                 </Button>
+                                {/* <Button
+                                    style={{ marginRight:'5px', float:'right', marginTop: '2%' }}
+                                >
+                                    Remaining days : {this.state.timeRemaining}
+                                </Button> */}
                                 <Step.Group style={{ minWidth: 1130, minHeight: 90 }}>
                                     <Step icon="users" title="Students" description={this.state.b} />
                                     <Step icon="user outline" title="Candidates" description={this.state.candidates} />
@@ -278,6 +333,7 @@ class ContainerExampleContainer extends Component {
                                         {this.returnGraph()}
                                     </div>
                                 </Grid.Column>
+                                
                             </Grid.Column>
                         </Layout>
                     </Grid.Row>

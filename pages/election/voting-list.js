@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Grid, Header, Button, Form, Input, Icon, Menu, Modal, Sidebar, Container, Card } from 'semantic-ui-react';
+import {Grid, Header, Button, Form, Input, Icon, Menu, Modal, Sidebar, Container, Card, Image} from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import Cookies from 'js-cookie';
 import {Link,Router} from '../../routes';
 import Election from '../../blockchain/election';
 import {Helmet} from 'react-helmet';
+import Footer from "../../components/Footer";
 class StudentList extends Component {
 
     state = {
@@ -169,7 +170,10 @@ class StudentList extends Component {
         <Sidebar.Pushable>
             <Sidebar as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin' style={{ backgroundColor: 'white', borderWidth: "10px" }}>
                 <Menu.Item as='a' style={{ color: 'grey' }} >
-                    <h2>MENU</h2><hr/>
+                    <div style={{display:'flex' , justifyContent: 'center'}}>
+                        <Image id="logo-image" src={`/tuk-logo.png`} style={{maxWidth: '100%',maxHeight:'50px'}}/>
+                    </div>
+                    <hr/>
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
                     <a>
@@ -213,16 +217,24 @@ class StudentList extends Component {
         window.location.href='/homepage';
     }
 
+    getElectionFooter = () => {
+
+        return (
+            <Footer as="h1">
+            </Footer>
+        );
+    };
+
     register = event => {
 
         const email = document.getElementById('register_student_email').value;
 
-        // const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
-        // this.setState({validEmail : emailChecker.test(email)});
-        // if(!emailChecker.test(email)){
-        //     alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
-        //     return;
-        // }
+        const emailChecker = /^[\w.-]+@students\.tukenya\.ac\.ke$/
+        this.setState({validEmail : emailChecker.test(email)});
+        if(!emailChecker.test(email)){
+            alert("Error! Student emails should be in the format 'name@students.tukenya.ac.ke'");
+            return;
+        }
 
         var http = new XMLHttpRequest();
         var url = "/student/register";
@@ -273,6 +285,7 @@ class StudentList extends Component {
                                             {this.renderTable()}
                                         </table>
                                     </Container>
+                                    {this.getElectionFooter()}
                                 </Grid.Column>
                                 <Grid.Column style={{ float: 'right', width: '30%' }}>
                                     <Container style={{}}>

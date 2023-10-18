@@ -7,6 +7,7 @@ import {Link,Router} from '../../routes';
 import Election from '../../blockchain/election';
 import ipfs from '../../ipfs';
 import {Helmet} from 'react-helmet';
+import Footer from "../../components/Footer";
 class VotingList extends Component {
 
     state = {
@@ -85,6 +86,13 @@ class VotingList extends Component {
         );
     }
 
+    getElectionFooter = () => {
+        return (
+            <Footer as="h1">
+            </Footer>
+        );
+    };
+
     renderTable = () => {
         return (<Card.Group items={this.state.item}/>)
     }
@@ -158,7 +166,10 @@ class VotingList extends Component {
         <Sidebar.Pushable>
             <Sidebar as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin' style={{ backgroundColor: 'white', borderWidth: "10px" }}>
                 <Menu.Item as='a' style={{ color: '#704e06' }} >
-                    <h2>MENU</h2><hr/>
+                    <div style={{display:'flex' , justifyContent: 'center'}}>
+                        <Image id="logo-image" src={`/tuk-logo.png`} style={{maxWidth: '100%',maxHeight:'50px'}}/>
+                    </div>
+                    <hr/>
                 </Menu.Item>
                 <Link route={`/election/${Cookies.get('address')}/admin_dashboard`}>
                     <a>
@@ -230,6 +241,7 @@ class VotingList extends Component {
                                             {this.renderTable()}
                                         </table>
                                     </Container>
+                                    {this.getElectionFooter()}
                                 </Grid.Column>
                                 <Grid.Column style={{ float: 'right', width: '30%' }}>
                                     <Container style={{marginLeft:'50px'}}>

@@ -44,12 +44,10 @@ module.exports = {
                                         subject: 'Voter Registration', // Subject line
 
                                         html:
-                                            '<br>Hello,</br>'+
-                                            'We’d like to notify you of your elligibility for the' + req.body.election_name + 'Election' +
-                                            '<br>" '+ req.body.election_description+
-                                            ' "</br>' + 
+                                            'Hello,<br>'+ 
+                                            'We’d like to notify you of your elligibility for the' + req.body.election_name + 'Election <br>' + 
 
-                                            '<br>'+ 'Your ID will be: '+
+                                            + 'Your ID will be: '+
                                             student.email +
                                             '</br>'  + 
 
@@ -57,7 +55,7 @@ module.exports = {
                                             student.password +
                                             '</br>' +
 
-                                            '<br><a href="http://localhost:3000/homepage">Click here to visit the website</a></br>', // plain text body
+                                            '<br><br><a href="http://localhost:3000/homepage">Click here to visit the website</a></br>', // plain text body
                                     };
 
                                     transporter.sendMail(mailOptions, function (err, info) {

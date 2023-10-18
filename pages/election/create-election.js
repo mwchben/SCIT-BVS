@@ -11,19 +11,20 @@ class LoginForm extends Component {
         election_description: '',
         loading: false,
         errorMess: '',
+        days: ''
     };
 
     signin = async event => {
         event.preventDefault();
         this.setState({ loading: true, errorMess: '' });
         try {
+            Cookies.set("days", this.state.days ? this.state.days : 5)
             const email = Cookies.get('admin_email');
             const accounts = await web3.eth.getAccounts();
             const bool = await Election_Factory.methods
                 .createElection(email, this.state.election_name, this.state.election_description)
                 .send({ from: accounts[0] });
                 console.log("bool",bool, accounts)
-
             if (bool) {
                 const summary = await Election_Factory.methods.getDeployedElection(email).call();
                 console.log(summary);
@@ -76,6 +77,18 @@ class LoginForm extends Component {
                                 placeholder="Election Description"
                                 value={this.state.election_description}
                                 onChange={event => this.setState({ election_description: event.target.value })}
+                            />
+
+                            <Form.Input
+                                fluid
+                                iconPosition="left"
+                                icon="keyboard card outline"
+                                placeholder="Election days"
+                                type="number"
+                                style={{ padding: 5 }}
+                                value={this.state.days}
+                                onChange={event => this.setState({ days: event.target.value })}
+                                required={true}
                             />
 
                             <Button

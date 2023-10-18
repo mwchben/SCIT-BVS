@@ -14,7 +14,7 @@ module.exports = {
             from: process.env.EMAIL,
             to: req.body.email,
             subject: 'Candidate Registration',
-            html: 'We’d like to confirm that your candidate status was created successfully for the ' + req.body.election_name + ' election.',
+            html: 'We’d like to confirm that your candidate position was created successfully for the ' + req.body.election_name + ' election.',
         };
         transporter.sendMail(mailOptions, function (err, info) {
             if (err) {
