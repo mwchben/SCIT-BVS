@@ -29,3 +29,10 @@ Run `npm run start`
 The server run as follows:
 
 ![ServerOnCLI](/Markdown/runningServerOnCLI)
+
+### 5. GO to localhost on port 3000
+A message will appear on the terminal, click the link to access the webpage:
+```
+    Server listening on port 3000, access with "http://localhost:3000/"  please
+    Connected to Mongo Database
+```
